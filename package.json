@@ -1,0 +1,32 @@
+{
+  "name": "financial-investment-simulator",
+  "version": "1.0.0",
+  "description": "A financial investment simulator using TypeScript and Apache ECharts",
+  "main": "index.html",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "keywords": [
+    "finance",
+    "investment",
+    "simulation",
+    "echarts",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/echarts": "^4.9.22",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "echarts": "^5.4.3"
+  },
+  "engines": {
+    "node": ">=22.14.0 <23",
+    "npm": ">=10.9.2 <11"
+  }
+}

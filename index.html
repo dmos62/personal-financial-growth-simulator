@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Investment Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Financial Investment Simulator</h1>
+            <p>Simulate investment growth over time with adjustable parameters</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-panel">
+                <h2>Simulation Parameters</h2>
+
+                <div class="parameter-group">
+                    <label for="invested">Initial Investment (€)</label>
+                    <div class="control-row">
+                        <input type="range" id="invested-slider" min="0" max="200000" step="10000" value="80000">
+                        <input type="number" id="invested-input" min="0" step="1000" value="80000">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="investment-expected-return">Expected Return (%)</label>
+                    <div class="control-row">
+                        <input type="range" id="investment-expected-return-slider" min="-30" max="30" step="1" value="8">
+                        <input type="number" id="investment-expected-return-input" min="-30" max="30" step="1" value="8">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="investment-volatility">Investment Volatility (%)</label>
+                    <div class="control-row">
+                        <input type="range" id="investment-volatility-slider" min="0" max="50" step="1" value="18">
+                        <input type="number" id="investment-volatility-input" min="0" max="50" step="1" value="18">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="net-income-monthly">Monthly Net Income (€)</label>
+                    <div class="control-row">
+                        <input type="range" id="net-income-monthly-slider" min="-15000" max="15000" step="100" value="1000">
+                        <input type="number" id="net-income-monthly-input" min="-15000" max="15000" step="100" value="1000">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="inflation-expected">Expected Inflation (%)</label>
+                    <div class="control-row">
+                        <input type="range" id="inflation-expected-slider" min="-30" max="30" step="0.5" value="3">
+                        <input type="number" id="inflation-expected-input" min="-30" max="30" step="0.5" value="3">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="inflation-volatility">Inflation Volatility (%)</label>
+                    <div class="control-row">
+                        <input type="range" id="inflation-volatility-slider" min="0" max="50" step="0.5" value="2">
+                        <input type="number" id="inflation-volatility-input" min="0" max="50" step="0.5" value="2">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="total-years">Simulation Years</label>
+                    <div class="control-row">
+                        <input type="range" id="total-years-slider" min="1" max="50" step="1" value="10">
+                        <input type="number" id="total-years-input" min="1" max="50" step="1" value="10">
+                    </div>
+                </div>
+
+                <div class="parameter-group">
+                    <label for="steps-per-year">Steps Per Year</label>
+                    <div class="control-row">
+                        <input type="range" id="steps-per-year-slider" min="1" max="12" step="1" value="2">
+                        <input type="number" id="steps-per-year-input" min="1" max="12" step="1" value="2">
+                    </div>
+                </div>
+
+                <div class="options-row">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="auto-update" checked>
+                        <label for="auto-update">Auto Update</label>
+                    </div>
+                    <button id="update-button" disabled>Update Simulation</button>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div id="chart"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Investment Growth Simulator - Values are inflation-adjusted</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script type="module" src="src/app.ts"></script>
+</body>
+</html>
