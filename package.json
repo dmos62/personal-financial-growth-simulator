@@ -18,13 +18,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/echarts": "^4.9.22",
     "@types/marked": "^5.0.2",
-    "typescript": "^5.0.4",
+    "typescript": "^5.8.3",
     "vite": "^6.0.0"
   },
   "dependencies": {
-    "echarts": "^5.4.3",
+    "echarts": "^5.6.0",
     "marked": "^15.0.8"
   },
   "engines": {
