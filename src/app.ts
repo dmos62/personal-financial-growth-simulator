@@ -272,7 +272,7 @@ function initializeChart(): void {
         }))
     };
 
-    chart.setOption(options);
+    chart.setOption(options as any);
 }
 
 function updateChart(percentileData: PercentileData, timeLabels: string[]): void {
@@ -288,7 +288,7 @@ function updateChart(percentileData: PercentileData, timeLabels: string[]): void
             data: timeLabels
         },
         series: seriesData
-    });
+    } as any);
 }
 
 // Simulation runner
@@ -362,17 +362,30 @@ function setupEventListeners(): void {
             updateConfigFromUI();
         });
 
-        // Sync input to slider
+        // Sync input to slider (only if within slider bounds)
         input.addEventListener('input', () => {
             let value = parseFloat(input.value);
 
             if (!isNaN(value)) {
-                // Convert percentage values
-                if (['investment-expected-return', 'investment-volatility', 'inflation-expected', 'inflation-volatility'].includes(id)) {
-                    slider.value = value.toString();
-                    value = value / 100; // Convert from percentage to decimal
+                // Get slider bounds
+                const min = parseFloat(slider.min);
+                const max = parseFloat(slider.max);
+
+                // Check if value is outside slider bounds
+                const isOutOfRange = value < min || value > max;
+
+                // Add or remove visual indicator class
+                if (isOutOfRange) {
+                    input.classList.add('out-of-range');
                 } else {
+                    input.classList.remove('out-of-range');
+                    // Only update slider if value is within bounds
                     slider.value = value.toString();
+                }
+
+                // Convert percentage values if needed
+                if (['investment-expected-return', 'investment-volatility', 'inflation-expected', 'inflation-volatility'].includes(id)) {
+                    value = value / 100; // Convert from percentage to decimal
                 }
 
                 updateConfigFromUI();
@@ -415,6 +428,35 @@ function updateConfigFromUI(): void {
     }
 }
 
+// Check if input values are outside slider bounds and apply visual indicator
+function checkInputRanges(): void {
+    const parameterIds = [
+        'invested',
+        'investment-expected-return',
+        'investment-volatility',
+        'net-income-monthly',
+        'inflation-expected',
+        'inflation-volatility',
+        'total-years',
+        'steps-per-year'
+    ];
+
+    parameterIds.forEach(id => {
+        const slider = document.getElementById(`${id}-slider`) as HTMLInputElement;
+        const input = document.getElementById(`${id}-input`) as HTMLInputElement;
+
+        const value = parseFloat(input.value);
+        const min = parseFloat(slider.min);
+        const max = parseFloat(slider.max);
+
+        if (value < min || value > max) {
+            input.classList.add('out-of-range');
+        } else {
+            input.classList.remove('out-of-range');
+        }
+    });
+}
+
 // Initialize the application
 function initializeApp(): void {
     // Initialize chart
@@ -422,6 +464,9 @@ function initializeApp(): void {
 
     // Set up event listeners
     setupEventListeners();
+
+    // Check initial input ranges
+    checkInputRanges();
 
     // Run initial simulation
     runSimulation();

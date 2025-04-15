@@ -52,11 +52,11 @@ header h1 {
     .main-content {
         flex-direction: row;
     }
-    
+
     .controls-panel {
         width: 40%;
     }
-    
+
     .chart-container {
         width: 60%;
     }
@@ -125,6 +125,13 @@ input[type="number"] {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 14px;
+}
+
+input[type="number"].out-of-range {
+    background-color: #fff8e1;
+    border-color: #ffc107;
+    color: #ff6f00;
+    font-weight: bold;
 }
 
 .options-row {
