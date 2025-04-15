@@ -4,9 +4,9 @@
   "description": "A financial investment simulator using TypeScript and Apache ECharts",
   "main": "index.html",
   "scripts": {
-    "start": "vite",
+    "dev": "vite --no-open",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "production-preview": "vite preview --no-open"
   },
   "keywords": [
     "finance",
