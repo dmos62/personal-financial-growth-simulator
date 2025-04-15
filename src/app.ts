@@ -362,6 +362,10 @@ function setupEventListeners(): void {
                 input.value = value.toString();
             }
 
+            // Remove out-of-range class when using slider
+            // as slider values are always within bounds
+            input.classList.remove('out-of-range');
+
             updateConfigFromUI();
         });
 
