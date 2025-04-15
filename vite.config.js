@@ -1,9 +1,12 @@
-import { defineConfig } from 'vite';
+import { defineConfig, defaultClientConditions } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs';
 
 export default defineConfig({
   root: './',
+  resolve: {
+    conditions: defaultClientConditions
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {

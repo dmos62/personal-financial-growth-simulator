@@ -21,7 +21,7 @@
     "@types/echarts": "^4.9.22",
     "@types/marked": "^5.0.2",
     "typescript": "^5.0.4",
-    "vite": "^4.3.9"
+    "vite": "^6.0.0"
   },
   "dependencies": {
     "echarts": "^5.4.3",
