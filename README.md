@@ -1,62 +1,14 @@
 # Financial Investment Simulator
 
-A static web application that simulates investment growth over time using TypeScript and Apache ECharts.
+Interactively simulates and visualizes potential investment growth using Geometric Brownian Motion and Monte Carlo simulations.
 
-## Features
+**Key Features:**
 
-- Interactive controls for adjusting simulation parameters
-- Real-time visualization of investment trajectories at different percentiles (5th, 25th, 50th, 75th, 95th)
-- Efficient calculation of multiple simulation trajectories
-- Dynamic chart updates with smooth transitions
-- Inflation-adjusted projections over a configurable time period
+*   **Interactive Scenario Testing:** Adjust parameters like starting capital, contributions, and investment horizon.
+*   **Probabilistic Projections:** Displays outcome ranges across percentiles (5th, 25th, 50th, 75th, 95th).
+*   **Inflation Adjustment:** Accounts for inflation.
+*   **Volatility Modeling:** Incorporates market and inflation volatility.
 
-## Getting Started
+**How It Works:**
 
-### Prerequisites
-
-- Node.js (v14 or later)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
-   or
-   ```
-   yarn
-   ```
-
-### Development
-
-Run the development server:
-```
-npm run start
-```
-or
-```
-yarn start
-```
-
-### Build
-
-Build for production:
-```
-npm run build
-```
-or
-```
-yarn build
-```
-
-## How It Works
-
-The application uses Geometric Brownian Motion to simulate investment returns while accounting for factors like inflation, volatility, and monthly income/expenses. Users can adjust various parameters to explore different financial scenarios.
-
-## Technologies Used
-
-- TypeScript
-- Apache ECharts
-- Vite (for building and development)
+The simulator uses Geometric Brownian Motion (GBM), a common model for stock prices, to generate possible investment paths. It then runs many of these simulated paths using Monte Carlo simulations (MCS) to account for randomness. Based on your inputs (initial investment, monthly contributions, return, volatility), it shows potential investment outcomes.

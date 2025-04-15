@@ -1,6 +1,9 @@
 // Import ECharts
 import * as echarts from 'echarts';
 
+// Import README renderer
+import { loadAndRenderReadme } from './readme-renderer';
+
 // Type definitions
 interface SimulationConfig {
     invested: number;
@@ -470,6 +473,9 @@ function initializeApp(): void {
 
     // Run initial simulation
     runSimulation();
+
+    // Load and render README.md content
+    loadAndRenderReadme();
 
     // Handle window resize
     window.addEventListener('resize', () => {

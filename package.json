@@ -19,11 +19,13 @@
   "license": "MIT",
   "devDependencies": {
     "@types/echarts": "^4.9.22",
+    "@types/marked": "^5.0.2",
     "typescript": "^5.0.4",
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "echarts": "^5.4.3"
+    "echarts": "^5.4.3",
+    "marked": "^15.0.8"
   },
   "engines": {
     "node": ">=22.14.0 <23",
