@@ -174,8 +174,8 @@ button:disabled {
 }
 
 .readme-container {
-    padding: 20px;
-    margin-top: 30px;
+    padding: 10px;
+    margin-top: 5px;
     border-radius: 8px;
     width: 100%;
     clear: both;
@@ -202,6 +202,25 @@ button:disabled {
 
 #readme-content p {
     margin-bottom: 15px;
+}
+
+#readme-content table {
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    width: 100%;
+}
+
+#readme-content th,
+#readme-content td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#readme-content th {
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 footer {
