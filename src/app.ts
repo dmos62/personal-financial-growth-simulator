@@ -1,5 +1,43 @@
-// Import ECharts
-import * as echarts from 'echarts';
+// Import ECharts core module
+import * as echarts from 'echarts/core';
+
+// Import charts you need
+import { LineChart } from 'echarts/charts';
+
+// Import components you need
+import {
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent
+} from 'echarts/components';
+
+// Import renderer
+import { CanvasRenderer } from 'echarts/renderers';
+
+// Import features
+import { UniversalTransition } from 'echarts/features';
+
+// Import types for TypeScript type checking
+import type { ComposeOption } from 'echarts/core';
+import type { LineSeriesOption } from 'echarts/charts';
+import type {
+  TitleComponentOption,
+  TooltipComponentOption,
+  GridComponentOption,
+  LegendComponentOption
+} from 'echarts/components';
+
+// Register the required components
+echarts.use([
+  LineChart,
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  UniversalTransition,
+  CanvasRenderer
+]);
 
 // Import README renderer
 import { loadAndRenderReadme } from './readme-renderer';
@@ -46,6 +84,15 @@ const DEFAULT_CONFIG: SimulationConfig = {
 
 // Current configuration (will be updated by UI)
 let currentConfig: SimulationConfig = { ...DEFAULT_CONFIG };
+
+// Create a custom type for our chart options
+type ECOption = ComposeOption<
+  | LineSeriesOption
+  | TitleComponentOption
+  | TooltipComponentOption
+  | GridComponentOption
+  | LegendComponentOption
+>;
 
 // Chart instance
 let chart: echarts.ECharts | null = null;
@@ -193,10 +240,22 @@ function calculatePercentiles(trajectories: number[][]): PercentileData {
 // Chart functions
 function initializeChart(): void {
     const chartDom = document.getElementById('chart')!;
-    chart = echarts.init(chartDom);
+
+    // Make sure the chart container has explicit dimensions
+    if (!chartDom.style.height) {
+        chartDom.style.height = '500px';
+    }
+    if (!chartDom.style.width) {
+        chartDom.style.width = '100%';
+    }
+
+    // Initialize with explicit renderer option
+    chart = echarts.init(chartDom, null, {
+        renderer: 'canvas' // Use canvas renderer for better performance with large datasets
+    });
 
     // Set initial options
-    const options: echarts.EChartsOption = {
+    const options: ECOption = {
         title: {
             text: 'Investment Growth Over Time (Inflation Adjusted)',
             left: 'center'
@@ -275,7 +334,7 @@ function initializeChart(): void {
         }))
     };
 
-    chart.setOption(options as any);
+    chart.setOption(options);
 }
 
 function updateChart(percentileData: PercentileData, timeLabels: string[]): void {
@@ -291,16 +350,20 @@ function updateChart(percentileData: PercentileData, timeLabels: string[]): void
             data: timeLabels
         },
         series: seriesData
-    } as any);
+    });
+}
+
+function divide_int(a: number, b: number): number {
+    return Math.floor(a / b)
 }
 
 // Simulation runner
 async function runSimulation(): Promise<void> {
-    // Generate multiple trajectories
-    const trajectories: number[][] = [];
-
     // Generate initial trajectories
-    for (let i = 0; i < 50; i++) {
+    const trajectories: number[][] = [];
+    const initialTrajectoryCount = divide_int(OPTIMAL_TRAJECTORY_COUNT, 10);
+
+    for (let i = 0; i < initialTrajectoryCount; i++) {
         trajectories.push(simulatePeriodOfGrowth(currentConfig));
     }
 
@@ -311,17 +374,22 @@ async function runSimulation(): Promise<void> {
 
     // Continue generating more trajectories in the background
     setTimeout(async () => {
-        for (let i = 0; i < OPTIMAL_TRAJECTORY_COUNT - 50; i += 10) {
-            // Generate in batches of 10
+        const remainingTrajectories = OPTIMAL_TRAJECTORY_COUNT - initialTrajectoryCount;
+        const sampleSize = remainingTrajectories;
+        const batchSize = divide_int(sampleSize, 10);
+
+        for (let i = 0; i < sampleSize; i += batchSize) {
+            // Generate in batches
             const newTrajectories = [];
-            for (let j = 0; j < 10 && i + j < OPTIMAL_TRAJECTORY_COUNT - 50; j++) {
+            for (let j = 0; j < batchSize && i + j < sampleSize; j++) {
                 newTrajectories.push(simulatePeriodOfGrowth(currentConfig));
             }
 
             trajectories.push(...newTrajectories);
 
-            // Update chart every 100 trajectories
-            if (trajectories.length % 100 === 0 || trajectories.length >= OPTIMAL_TRAJECTORY_COUNT) {
+            // Update chart every `updateBatchSize` trajectories or at the end
+            const updateBatchSize = divide_int(sampleSize, 5)
+            if (trajectories.length % updateBatchSize === 0 || i + batchSize >= sampleSize) {
                 const updatedPercentileData = calculatePercentiles(trajectories);
                 updateChart(updatedPercentileData, timeLabels);
 
@@ -329,6 +397,8 @@ async function runSimulation(): Promise<void> {
                 await new Promise(resolve => setTimeout(resolve, 0));
             }
         }
+
+        console.log(`Simulation complete with ${trajectories.length} trajectories`);
     }, 0);
 }
 
@@ -481,12 +551,33 @@ function initializeApp(): void {
     // Load and render README.md content
     loadAndRenderReadme();
 
-    // Handle window resize
+    // Handle window resize with debounce for better performance
+    let resizeTimeout: number | null = null;
     window.addEventListener('resize', () => {
-        if (chart) {
-            chart.resize();
+        if (resizeTimeout) {
+            window.clearTimeout(resizeTimeout);
         }
+
+        resizeTimeout = window.setTimeout(() => {
+            if (chart) {
+                chart.resize();
+            }
+            resizeTimeout = null;
+        }, 100);
     });
+
+    // Use ResizeObserver for more reliable container size detection
+    if (window.ResizeObserver) {
+        const chartContainer = document.getElementById('chart');
+        if (chartContainer) {
+            const resizeObserver = new ResizeObserver(() => {
+                if (chart) {
+                    chart.resize();
+                }
+            });
+            resizeObserver.observe(chartContainer);
+        }
+    }
 }
 
 // Start the application when DOM is loaded
