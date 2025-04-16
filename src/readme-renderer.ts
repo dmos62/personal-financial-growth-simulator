@@ -1,11 +1,14 @@
 // Import the marked library
 import { marked } from 'marked';
 
+// Get the base URL from the import.meta.env
+const BASE_URL = import.meta.env.BASE_URL || '/';
+
 // Function to fetch and render README.md content
 export async function loadAndRenderReadme(): Promise<void> {
     try {
-        // Fetch the README.md file
-        const response = await fetch('/README.md');
+        // Fetch the README.md file with the correct base path
+        const response = await fetch(`${BASE_URL}README.md`);
 
         if (!response.ok) {
             throw new Error(`Failed to load README.md: ${response.status} ${response.statusText}`);
