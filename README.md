@@ -35,4 +35,4 @@ The simulator allows you to adjust the following parameters:
 
 ## How It Works
 
-The simulator uses Geometric Brownian Motion (GBM), a common model for stock prices, to generate possible personal worth paths. It then runs many of these simulated paths using Monte Carlo simulations (MCS) to account for randomness. Based on your inputs (initial investment, monthly contributions, return, volatility, inflation), it shows potential outcomes, visualizing the uncertainty.
+The simulator uses Geometric Brownian Motion (GBM) and Monte Carlo simulations (MCS) to generate potential personal worth paths. It approximates the effects of both investment volatility and inflation volatility.
