@@ -2,9 +2,8 @@ import { defineConfig, defaultClientConditions } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs';
 
-// Determine base path for GitHub Pages deployment
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
-const base = isGitHubPages ? '/fin-skaiciavimai-js/' : '/';
+// Use relative paths for all deployments
+const base = './';
 
 export default defineConfig({
   root: './',

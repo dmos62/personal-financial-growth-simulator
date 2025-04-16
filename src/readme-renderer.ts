@@ -1,9 +1,8 @@
 // Import the marked library
 import { marked } from 'marked';
 
-// Get the base URL from the import.meta.env
-// Use a type guard to check if import.meta.env exists
-const BASE_URL = (import.meta.env && import.meta.env.BASE_URL) || '/';
+// Use relative path for README.md
+const BASE_URL = './';
 
 // Function to fetch and render README.md content
 export async function loadAndRenderReadme(): Promise<void> {
