@@ -25,7 +25,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 header {
@@ -43,7 +43,7 @@ header h1 {
 .main-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
 }
 
 @media (min-width: 992px) {
@@ -61,23 +61,23 @@ header h1 {
 }
 
 .controls-panel {
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
 }
 
 .controls-panel h2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: var(--primary-color);
     font-size: 1.5rem;
 }
 
 .parameter-group {
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .parameter-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     font-weight: 500;
 }
 
@@ -134,7 +134,7 @@ input[type="number"].out-of-range {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .checkbox-group {
@@ -164,7 +164,7 @@ button:disabled {
 }
 
 .chart-container {
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
 }
 
