@@ -1,12 +1,18 @@
 :root {
+    /* Keep original colors for controls and chart */
     --primary-color: #3498db;
     --secondary-color: #2980b9;
+    /* Monochromatic colors for everything else */
     --background-color: #f8f9fa;
     --panel-color: #ffffff;
-    --text-color: #333333;
+    --text-color: #555555;
     --border-color: #e0e0e0;
     --success-color: #2ecc71;
     --hover-color: #f5f5f5;
+    /* New monochromatic colors */
+    --mono-heading: #444444;
+    --mono-subheading: #666666;
+    --mono-text: #555555;
 }
 
 * {
@@ -36,7 +42,7 @@ header {
 }
 
 header h1 {
-    color: var(--primary-color);
+    color: var(--mono-heading);
     margin-bottom: 10px;
 }
 
@@ -67,7 +73,7 @@ header h1 {
 
 .controls-panel h2 {
     margin-bottom: 10px;
-    color: var(--primary-color);
+    color: var(--mono-subheading);
     font-size: 1.5rem;
 }
 
@@ -192,12 +198,12 @@ button:disabled {
 }
 
 #readme-content h1 {
-    color: var(--primary-color);
+    color: var(--mono-heading);
     margin-bottom: 15px;
 }
 
 #readme-content h2 {
-    color: var(--secondary-color);
+    color: var(--mono-subheading);
     margin: 20px 0 10px;
 }
 
@@ -225,14 +231,14 @@ button:disabled {
 
 #readme-content th {
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--mono-heading);
 }
 
 footer {
     text-align: center;
     margin-top: 30px;
     padding: 15px;
-    color: #777;
+    color: var(--mono-text);
     font-size: 0.9rem;
 }
 

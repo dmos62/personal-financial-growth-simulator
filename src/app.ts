@@ -257,7 +257,7 @@ function initializeChart(): void {
     // Set initial options
     const options: ECOption = {
         title: {
-            text: 'Investment Growth Over Time (Inflation Adjusted)',
+            text: '',
             left: 'center'
         },
         tooltip: {
